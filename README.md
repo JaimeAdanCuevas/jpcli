@@ -5,5 +5,5 @@ JP is a library that converts the output of various Linux commands to JSON forma
 ## Installation
 
 ```sh
-pip install jp
+pip install jpcli
 
