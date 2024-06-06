@@ -1,6 +1,6 @@
-# JP
+# jpcli
 
-JP is a library that converts the output of various Linux commands to JSON format.
+jpcli is a library that converts the output of various Linux commands to JSON format.
 
 ## Installation
 
