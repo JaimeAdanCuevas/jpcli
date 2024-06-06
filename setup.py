@@ -11,7 +11,7 @@ setup(
     description="A library to convert Linux command output to JSON",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/JaimeAdanCuevas/jp",
+    url="https://github.com/JaimeAdanCuevas/jpcli",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
