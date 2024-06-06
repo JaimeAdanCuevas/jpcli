@@ -1,5 +1,5 @@
-from jp.main import jp
+from jpcli.main import jpcli
  
 # Example for lsmem command
-parsed_data = jp('lsmem', '')
+parsed_data = jpcli('lsmem', '')
 print(parsed_data)
