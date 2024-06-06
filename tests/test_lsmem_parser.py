@@ -1,5 +1,5 @@
 import unittest
-from jp.parsers import lsmem_parser
+from jpcli.parsers import lsmem_parser
 
 class TestLsmemParser(unittest.TestCase):
 

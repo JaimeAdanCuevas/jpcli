@@ -26,9 +26,9 @@ def main():
     parser.add_argument('parser_name', type=str, nargs='?', default='', help='The name of the parser to use')
 
     args = parser.parse_args()
-    result = jp(args.command, args.parser_name)
+    result = jpcli(args.command, args.parser_name)
     print(result)
 
-def jp(command, parser_name):
+def jpcli(command, parser_name):
     output = run_command(command)
     return parse_command_output(output, parser_name)
