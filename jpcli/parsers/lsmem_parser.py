@@ -21,4 +21,3 @@ def parse(command_output):
             data.append(entry)
 
     return data
-

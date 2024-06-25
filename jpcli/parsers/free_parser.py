@@ -1,5 +1,6 @@
 import json
 
+
 def parse(command_output):
     lines = command_output.strip().split('\n')
     headers = lines[0].split()
@@ -19,4 +20,3 @@ def parse(command_output):
         memory_data.append(entry)
 
     return json.dumps(memory_data, indent=2)
-
