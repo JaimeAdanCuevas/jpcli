@@ -1,0 +1,26 @@
+name: PEP8 Style Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Set the Python version as required
+
+    - name: Install pycodestyle (formerly pep8)
+      run: pip install pycodestyle
+
+    - name: Check PEP8 Compliance
+      run: pycodestyle . --ignore=E501
