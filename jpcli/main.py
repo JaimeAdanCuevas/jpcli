@@ -54,7 +54,7 @@ def main():
 
 
 def jpcli(parser_name, command):
-        
+
     if sys.stdin.isatty():
         # Not receiving piped data, execute the command
         result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)

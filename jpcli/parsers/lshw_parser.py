@@ -32,6 +32,7 @@ def parse(command_output):
     result = list(parse_section(lines, 0))
     return result
 
+
 def lshw_parser(command_output):
     lines = command_output.splitlines()
     return list(parse_section(lines, 0))
