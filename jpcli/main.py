@@ -1,7 +1,8 @@
 
 import argparse
 import subprocess
-from .parsers import lsmem_parser, free_parser, other_command_parser
+import sys
+from .parsers import lsmem_parser, free_parser, df_parser, lshw_parser, lscpu_parser, cpuinfo_parser, uname_parser, ifconfig_parser, cmdline_parser, os_release_parser, dmesg_parser
 
 
 def run_command(command):
@@ -17,7 +18,15 @@ def parse_command_output(command_output, parser_name):
     parsers = {
         'lsmem': lsmem_parser.parse,
         'free': free_parser.parse,
-        # Add other parsers here
+        'df': df_parser.parse,
+        'lshw': lshw_parser.parse,
+        'lscpu': lscpu_parser.parse,
+        'cpuinfo': cpuinfo_parser.parse,
+        'uname': uname_parser.parse,
+        'ifconfig': ifconfig_parser.parse,
+        'cmdline': cmdline_parser.parse,
+        'os-release': os_release_parser.parse,
+        'dmesg': dmesg_parser.parse,
     }
     if parser_name in parsers:
         return parsers[parser_name](command_output)
@@ -27,25 +36,36 @@ def parse_command_output(command_output, parser_name):
 
 def main():
 
-    parser = argparse.ArgumentParser(description='JP - JSON Parser for Linux commands')
-    parser.add_argument('command', type=str, help='The Linux command to run')
-    parser.add_argument('parser_name', type=str, nargs='?', default=None, help='The name of the parser to use')
-
+    parser = argparse.ArgumentParser(description="Parse Linux command outputs into JSON")
+    parser.add_argument('parser_name', help='The name of the parser to use')
+    parser.add_argument('command', nargs='?', default=None, help='The Linux command to run (optional, reads from stdin if omitted)')
     args = parser.parse_args()
-    result = jpcli(args.command, args.parser_name)
+
+    if not args.command and not args.parser_name:
+        print("Error: Parser is required when reading from stdin or command for stdout", file=sys.stderr)
+        parser.print_help()
+        sys.exit(1)
+
+    if args.command is None:
+        args.command = args.parser_name
+
+    result = jpcli(args.parser_name, args.command)
     print(result)
 
 
-def jpcli(command, parser_name=None):
+def jpcli(parser_name, command):
+        
+    if sys.stdin.isatty():
+        # Not receiving piped data, execute the command
+        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode != 0:
+            print(f"Error: {result.stderr}", file=sys.stderr)
+            sys.exit(result.returncode)
+        command_output = result.stdout
+    else:
+        command_output = sys.stdin.read()
+        parser_name = command  # Use the command as the parser name
 
-    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    if result.returncode != 0:
-        print(f"Error: {result.stderr}", file=sys.stderr)
-        sys.exit(result.returncode)
-
-    command_output = result.stdout
-    if parser_name is None:
-        parser_name = command.split()[0]  # Use the first word of the command as the parser name
     return parse_command_output(command_output, parser_name)
 
 
