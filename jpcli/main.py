@@ -27,8 +27,8 @@ def parse_command_output(command_output, parser_name):
         'cmdline': cmdline_parser.parse,
         'os-release': os_release_parser.parse,
         'dmesg': dmesg_parser.parse,
-        'journalctl', journalctl_parser.parse,
-        'mcelog', mcelog_parser.parse,
+        'journalctl': journalctl_parser.parse,
+        'mcelog': mcelog_parser.parse,
     }
     if parser_name in parsers:
         return parsers[parser_name](command_output)
