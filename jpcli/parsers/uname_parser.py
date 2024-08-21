@@ -21,7 +21,7 @@ def parse(command_output):
         uname_info['kernel_version'] = parts[3]  # Kernel version
         uname_info['architecture'] = parts[4]  # Machine hardware name
         uname_info['processor'] = parts[5]  # Processor type
-        
+
         # Additional fields if available
         if len(parts) > 6:
             uname_info['platform'] = parts[6]  # Platform type (e.g., GNU/Linux)

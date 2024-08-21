@@ -1,5 +1,6 @@
 import json
 
+
 def parse(command_output):
     # Split the command line output into individual parameters
     params = command_output.strip().split()
@@ -16,4 +17,3 @@ def parse(command_output):
 
     # Convert the dictionary to a JSON-formatted string
     return json.dumps(cmdline_dict, indent=2)
-

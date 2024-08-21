@@ -32,5 +32,3 @@ def parse(command_output):
     }
 
     return json.dumps(result, indent=2)
-
-

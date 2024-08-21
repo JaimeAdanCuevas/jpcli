@@ -11,4 +11,3 @@ def parse(dmesg_output):
         return json.dumps(dmesg_list, indent=2)
     except Exception as e:
         return json.dumps({"error": str(e), "message": "Failed to parse dmesg output"}, indent=2)
-    

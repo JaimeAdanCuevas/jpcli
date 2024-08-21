@@ -4,7 +4,7 @@ import json
 def parse(command_output):
     processors = []
     current_processor = {}
-    
+
     lines = command_output.splitlines()
     for line in lines:
         if line.strip():  # Check if line is not empty

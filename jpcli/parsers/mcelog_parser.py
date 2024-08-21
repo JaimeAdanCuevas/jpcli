@@ -1,5 +1,6 @@
 import json
 
+
 def parse(mcelog_output):
     """
     Parse the contents of mcelog output.
