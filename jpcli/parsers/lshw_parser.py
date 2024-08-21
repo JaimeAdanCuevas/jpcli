@@ -12,9 +12,9 @@ def parse(command_output, indent_level=0):
             line = lines.pop(0)
             if line.strip() == "":
                 continue  # Ignore empty lines
-            
+
             indent = len(line) - len(line.lstrip())
-            
+
             if indent < indent_level:
                 lines.insert(0, line)
                 break
@@ -33,10 +33,10 @@ def parse(command_output, indent_level=0):
                     if 'subsections' not in current_section:
                         current_section['subsections'] = []
                     current_section['subsections'].extend(parse_section([line] + lines, indent))
-        
+
         if current_section:
             yield current_section
-    
+
     lines = command_output.splitlines()
     parsed_data = list(parse_section(lines, indent_level))
     return json.dumps(parsed_data, indent=2)
