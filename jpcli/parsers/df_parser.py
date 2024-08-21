@@ -1,3 +1,6 @@
+import json
+
+
 def parse(command_output):
     lines = command_output.splitlines()
     data = []
@@ -13,4 +16,4 @@ def parse(command_output):
         entry = {headers[i]: values[i] for i in range(len(headers))}
         data.append(entry)
 
-    return data
+    return json.dumps(data, indent=2)

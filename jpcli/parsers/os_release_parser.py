@@ -1,4 +1,6 @@
-# jpcli/parsers/os_release_parser.py
+import json
+
+
 def parse(os_release_output):
     """
     Parse the contents of /etc/os-release.
@@ -8,4 +10,4 @@ def parse(os_release_output):
         if '=' in line:
             key, value = line.split('=', 1)
             os_release_dict[key] = value.strip('"')
-    return os_release_dict
+    return json.dumps(os_release_dict, indent=2)

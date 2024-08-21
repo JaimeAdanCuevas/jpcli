@@ -1,3 +1,5 @@
+import json
+
 def parse(mcelog_output):
     """
     Parse the contents of mcelog output.
@@ -7,6 +9,6 @@ def parse(mcelog_output):
         mcelog_list = []
         for line in mcelog_lines:
             mcelog_list.append(line)
-        return mcelog_list
+        return json.dumps(mcelog_list, indent=2)
     except Exception as e:
         return {"error": str(e), "message": "Failed to parse mcelog output"}

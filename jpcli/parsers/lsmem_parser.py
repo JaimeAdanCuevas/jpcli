@@ -1,7 +1,11 @@
+import json
+
+
 def parse(command_output):
     lines = command_output.splitlines()
-    data = []
+    memory_blocks = []
     headers = []
+    summary = {}
 
     # Extract headers from the first line
     if lines:
@@ -12,12 +16,21 @@ def parse(command_output):
         if not line.strip():  # Skip empty lines
             continue
 
-        values = [value.strip() for value in line.split() if value.strip()]
-        if len(values) != len(headers):
-            # For handling lines with different formats (like summary lines)
-            data.append({headers[0]: " ".join(values)})
+        # Check if the line contains summary information
+        if ':' in line:
+            key, value = line.split(':')
+            summary[key.strip().lower().replace(' ', '_')] = value.strip()
         else:
-            entry = {headers[i]: values[i] for i in range(len(headers))}
-            data.append(entry)
+            values = [value.strip() for value in line.split() if value.strip()]
+            if len(values) == len(headers):
+                entry = {headers[i].lower(): values[i] for i in range(len(headers))}
+                memory_blocks.append(entry)
 
-    return data
+    result = {
+        "memory_blocks": memory_blocks,
+        **summary
+    }
+
+    return json.dumps(result, indent=2)
+
+

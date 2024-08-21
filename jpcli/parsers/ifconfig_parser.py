@@ -1,4 +1,5 @@
 import re
+import json
 
 
 def parse(ifconfig_output):
@@ -37,4 +38,4 @@ def parse(ifconfig_output):
     if current_interface:
         interfaces[current_interface['name']] = current_interface
 
-    return interfaces
+    return json.dumps(interfaces, indent=2)

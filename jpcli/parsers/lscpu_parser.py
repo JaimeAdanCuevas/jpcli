@@ -1,3 +1,6 @@
+import json
+
+
 def parse(command_output):
     """
     Parses the output of the lscpu command into a dictionary.
@@ -17,17 +20,4 @@ def parse(command_output):
                 key = parts[0].strip()
                 value = parts[1].strip()
                 cpu_info[key] = value
-    return cpu_info
-
-
-def lscpu_parser(command_output):
-    """
-    Wrapper function to parse lscpu output.
-
-    Args:
-    command_output (str): The string output from the lscpu command.
-
-    Returns:
-    dict: Parsed CPU information.
-    """
-    return parse(command_output)
+    return json.dumps(cpu_info, indent=2)

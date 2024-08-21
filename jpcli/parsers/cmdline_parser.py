@@ -1,12 +1,19 @@
-def parse(cmdline_output):
-    """
-    Parse the contents of /proc/cmdline.
-    """
+import json
+
+def parse(command_output):
+    # Split the command line output into individual parameters
+    params = command_output.strip().split()
+
+    # Create a dictionary to hold the parsed key-value pairs
     cmdline_dict = {}
-    for item in cmdline_output.strip().split():
-        if '=' in item:
-            key, value = item.split('=', 1)
-            cmdline_dict[key] = value
+
+    for param in params:
+        if '=' in param:
+            key, value = param.split('=', 1)
         else:
-            cmdline_dict[item] = None
-    return cmdline_dict
+            key, value = param, None  # Handle flags with no value (e.g., "quiet")
+        cmdline_dict[key] = value
+
+    # Convert the dictionary to a JSON-formatted string
+    return json.dumps(cmdline_dict, indent=2)
+
