@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="jpcli",
-    version="0.4.0",
+    version="0.5.0",
     author="Jaime Cuevas",
     author_email="adancuevas@outlook.com",
     description="A library to convert Linux command output to JSON",
