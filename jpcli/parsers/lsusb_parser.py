@@ -1,6 +1,7 @@
 import json
 import re
 
+
 def parse(command_output):
     lines = command_output.strip().split("\n")
     usb_data = []

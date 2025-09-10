@@ -6,7 +6,7 @@ def parse(command_output, indent_level=0):
     Recursively parse sections of command output based on indentation level.
     """
     def parse_section(lines, indent_level):
-        data = {}
+
         current_section = {}  # Initialize as empty dictionary
         while lines:
             line = lines.pop(0)
