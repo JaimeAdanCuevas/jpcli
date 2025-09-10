@@ -2,7 +2,7 @@
 import argparse
 import subprocess
 import sys
-from .parsers import lsmem_parser, free_parser, df_parser, lshw_parser, lscpu_parser, cpuinfo_parser, uname_parser, ifconfig_parser, cmdline_parser, os_release_parser, dmesg_parser, journalctl_parser, mcelog_parser
+from .parsers import lsmem_parser, free_parser, df_parser, lshw_parser, lscpu_parser, cpuinfo_parser, uname_parser, ifconfig_parser, cmdline_parser, os_release_parser, dmesg_parser, journalctl_parser, mcelog_parser, lsusb_parser, lsblk_parser
 
 
 def run_command(command):
@@ -29,6 +29,8 @@ def parse_command_output(command_output, parser_name):
         'dmesg': dmesg_parser.parse,
         'journalctl': journalctl_parser.parse,
         'mcelog': mcelog_parser.parse,
+        'lsusb': lsusb_parser.parse,
+        'lsblk': lsblk_parser.parse,
     }
     if parser_name in parsers:
         return parsers[parser_name](command_output)
